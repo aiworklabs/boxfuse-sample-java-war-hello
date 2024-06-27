@@ -28,8 +28,7 @@ pipeline {
                             ssh ubuntu@13.127.136.116 /home/ubuntu/apache-tomcat-9.0.90/bin/startup.sh
                             
                           """
-    
-}
+    }
                       
                        }
             }
