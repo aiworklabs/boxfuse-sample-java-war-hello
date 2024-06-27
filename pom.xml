@@ -5,13 +5,13 @@
     <groupId>com.boxfuse.samples</groupId>
     <artifactId>hello</artifactId>
     <packaging>war</packaging>
-    <version>1.0</version>
+    <version>9.5.4</version>
     <name>hello</name>
     <url>https://github.com/boxfuse/boxfuse-sample-java-war-hello</url>
 
     <properties>
         <docker.image.prefix>kammana</docker.image.prefix>
-        <sonar.host.url>http://13.235.0.81:9000/</sonar.host.url>
+        <sonar.host.url>http://52.66.204.59:9000/</sonar.host.url>
         <java.version>11</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -22,8 +22,18 @@
             <id>central</id>
             <url>https://repo.maven.apache.org/maven2</url>
         </repository>
-        <!-- Add any additional repositories, including Artifactory, if needed -->
+        <!-- Add any additional repositories here -->
     </repositories>
+
+    <dependencies>
+        <!-- Servlet API dependency -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
@@ -31,31 +41,6 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
                 <version>3.10.0.2594</version>
-            </plugin>
-            <plugin>
-                <groupId>org.jfrog.buildinfo</groupId>
-                <artifactId>artifactory-maven-plugin</artifactId>
-                <version>3.1.1</version>
-                <executions>
-                    <execution>
-                        <id>build-info</id>
-                        <goals>
-                            <goal>publish</goal>
-                        </goals>
-                        <configuration>
-                            <deployProperties>
-                                <deploy.build.name>${project.name}</deploy.build.name>
-                                <deploy.build.number>${project.version}</deploy.build.number>
-                            </deployProperties>
-                            <artifactory>
-                                <deploy>
-                                    <deployArtifacts>true</deployArtifacts>
-                                </deploy>
-                                <publishBuildInfo>true</publishBuildInfo>
-                            </artifactory>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -76,4 +61,16 @@
             </plugin>
         </plugins>
     </build>
+
+    <!-- Distribution Management for deploying artifacts -->
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexusRepo</id>
+            <url>http://13.232.45.92:8081/repository/sample-snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexusRepo</id>
+            <url>http://13.232.45.92:8081/repository/sample-releases/</url>
+        </repository>
+    </distributionManagement>
 </project>
